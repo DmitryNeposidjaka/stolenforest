@@ -1,0 +1,94 @@
+{
+  "portfolio": [
+    {
+      "id": 1,
+      "name": "Brutal Sweden",
+      "link": "https://vimeo.com/422509201",
+      "tags": [
+        "2d animation", "explainer", "motiondesign"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Nintendo Switch Colors",
+      "link": "https://vimeo.com/426574034",
+      "tags": [
+        "3d animation", "motion graphics"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Woodman Barbershop",
+      "link": "https://vimeo.com/233327925",
+      "tags": [
+        "video", "fashion" , "commercial"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Super Bawl Party",
+      "link": "https://vimeo.com/322482382",
+      "tags": [
+        "3d animation" , "motion graphics" , "vfx"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "A Tale of Two Steves",
+      "link": "https://vimeo.com/360505121",
+      "tags": [
+        "2d animation" , "explainer" , "motion grap"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "A Tale of Two Steves 2",
+      "link": "https://vimeo.com/372305831",
+      "tags": [
+        "2d animation" , "explainer" , "motion graphics"
+      ]
+    }
+  ],
+  "fan": [
+    {
+      "id": 6,
+      "name": "Stolen Forest x Mizontiq - vice shiiiieeeeet",
+      "link": "https://www.youtube.com/watch?v=6ihE4AMVVDA&ab_channel=StolenForest",
+      "tags": [
+        "music video" , "track" , "chill"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Stolen Forest - neprost (2018)",
+      "link": "https://soundcloud.com/stolen-forest/sets/stolen-forest-neprost-2018",
+      "tags": [
+        "music" , "album" , "ambient" , "electronic"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Stolentiq - Guacamole Glaucoma (2017)",
+      "link": "https://soundcloud.com/stolen-forest/sets/stolentiq-guacamole-glaucoma-2017",
+      "tags": [
+        "music" , "album" , "collab" , "ambient" , "dark" , "trip-hop"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Stolen Forest x Denysova - Humility (ft. Mizontiq)",
+      "link": "https://soundcloud.com/stolen-forest/stolen-forest-x-denysova-humility",
+      "tags": [
+        "music" , "track" , "collab" , "trip-hop" , "ambient" , "techno"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Stolen Forest - Ptibra",
+      "link": "https://soundcloud.com/stolen-forest/ptibra",
+      "tags": [
+        "music" , "track" , "beats" , "chill" , "lo-fi"
+      ]
+    }
+  ]
+}
