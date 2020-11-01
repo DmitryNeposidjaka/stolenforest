@@ -6,8 +6,6 @@ import { Card } from "../../components/Card/Card";
 /* Assets */
 import arrowDown from '../../assets/images/icon-arrow-down.svg';
 
-import data from "../../data.json";
-
 interface Props {
   data: {
     name: string; 
