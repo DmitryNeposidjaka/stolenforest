@@ -1,14 +1,17 @@
 import * as React from "react";
+
 import logo from "../../assets/images/logo_white.svg";
-type Props = {alt: string};
-const Header: React.FC<Props> = ({alt}: Props): JSX.Element => {
-    return (
-        <header id="header">
-            <a href="#" className="logo">
-                <img src={logo} alt={alt} />
-            </a>
-        </header>
-    )
+
+const Header: React.FunctionComponent= () => {
+  return (
+    <header id="header">
+      {/*
+      //eslint-disable-next-line */}
+      <a href="#" className="logo">
+        <img src={logo} alt='STOLENTIQ STUDIO' />
+      </a>
+    </header>
+  )
 }
 
 export {Header}
