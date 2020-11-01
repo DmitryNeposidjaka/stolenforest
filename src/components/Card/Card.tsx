@@ -22,7 +22,9 @@ const Card: React.FunctionComponent<Props> = ({
       </p>
 
       <div className="item__image">
-        <a  target="__bank">
+        {/*
+        //eslint-disable-next-line */}
+        <a href="#" target="__bank">
           <img src={startupVillage} alt="Startup Village" />
         </a>
       </div>

@@ -63,7 +63,7 @@ const Root: React.FC = () => {
       <Normalize />
       <Main />
 
-      <Header alt='STOLENTIQ STUDIO'/>
+      <Header/>
 
       <Portfolio data={data.portfolio} navigationClick={handleSmoothScroll}/>
       <Fun data={data.fun} navigationClick={handleSmoothScroll}/>

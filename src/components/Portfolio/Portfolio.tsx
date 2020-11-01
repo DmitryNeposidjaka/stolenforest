@@ -4,11 +4,7 @@ import * as React from "react";
 import { Card } from "../../components/Card/Card";
 
 /* Assets */
-import project from '../../assets/images/Project-33.png';
-import woodman from '../../assets/images/woodman.png';
-import startupVillage from '../../assets/images/Startup-Village.png';
 import arrowDown from '../../assets/images/icon-arrow-down.svg';
-import arrowUp from '../../assets/images/icon-arrow-up.svg';
 
 import data from "../../data.json";
 
