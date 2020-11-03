@@ -10,7 +10,8 @@ interface Props {
   data: {
     name: string; 
     link: string; 
-    tags: string[]
+    tags: string[];
+    imageName: string;
   }[];
   navigationClick: (e: any) => void;
 }
@@ -36,7 +37,7 @@ const Fun: React.FunctionComponent<Props> = ({ data, navigationClick }: Props) =
       <div className="page-content-wrapper">
         <div className="project-list">
           {data.map((item, key) => (
-            <Card name={item.name} link={item.link} tags={item.tags} key={key}/>
+            <Card name={item.name} link={item.link} tags={item.tags} imageName={item.imageName} key={key}/>
           ))}
         </div>
       </div>
