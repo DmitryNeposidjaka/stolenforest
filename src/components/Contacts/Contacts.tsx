@@ -15,32 +15,39 @@ import { StyledContactsPage } from './styles';
 const socialLinks = [
   {
     name: 'soundcloud',
+    href: 'https://soundcloud.com/stolen-forest',
     img: soundcloud 
   },
   {
     name: 'behance',
+    href: '',
     img: behance
   },
   {
     name: 'vimeo',
+    href: 'https://vimeo.com/stolentiq',
     img: vimeo
   },
   {
     name: 'bandcamp',
+    href: 'https://stolenforest.bandcamp.com/',
     img: bandcamp
   },
   {
     name: 'facebook',
+    href: 'https://www.facebook.com/stolentiqstudio',
     img: facebook
   },
   {
     name: 'vk',
+    href: 'https://vk.com/stolenforest',
     img: vk
   },
   {
     name: 'instagram',
+    href: 'https://www.instagram.com/stolentiq_studio',
     img: instagram
-  },
+  }
 ];
 
 
@@ -74,12 +81,12 @@ const Contacts: React.FunctionComponent<Props> = ({navigationClick}: Props) =>  
           <p>
             {/*
             //eslint-disable-next-line */}
-            telegram: <a href="#">@humanramen</a>
+            telegram: <a href="https://t.me/humanramen">@humanramen</a>
           </p>
           <p>
             {/*
             //eslint-disable-next-line */}
-            vk: <a href="#">/unwritten</a>
+            vk: <a href="https://vk.com/stolenforest">/unwritten</a>
           </p>
         </div>
 
@@ -88,7 +95,7 @@ const Contacts: React.FunctionComponent<Props> = ({navigationClick}: Props) =>  
             <li key={key}>
                 {/*
                 //eslint-disable-next-line */}
-                <a href="#" data-name={item.name}>
+                <a href={item.href} data-name={item.name}>
                     <img src={item.img} alt="behance" />
                 </a>
             </li>
