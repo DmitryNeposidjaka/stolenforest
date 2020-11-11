@@ -107,11 +107,13 @@ export const Main = createGlobalStyle`
     .page-content-wrapper {
       width: 100%;
       height: max-content;
-      overflow-x: scroll;
+      overflow-x: auto;
     }
 
     .project-list {
       padding: 0 32px;
+
+      height: max-content;
 
       display: grid;
       grid-auto-flow: column;

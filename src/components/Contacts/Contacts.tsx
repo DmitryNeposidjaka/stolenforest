@@ -20,7 +20,7 @@ const socialLinks = [
   },
   {
     name: 'behance',
-    href: '',
+    href: 'https://www.behance.net/stolentiqstudio',
     img: behance
   },
   {
@@ -58,8 +58,6 @@ interface Props {
 const Contacts: React.FunctionComponent<Props> = ({navigationClick}: Props) =>  {
   return (
     <StyledContactsPage id="contacts" className="page">
-      {/*
-      //eslint-disable-next-line */}
       <a href="#portfolio" className="link-to-section up" onClick={navigationClick}>
         <img src={arrowUp} alt="up" />
         <span className="link-text">UP</span>
@@ -79,22 +77,16 @@ const Contacts: React.FunctionComponent<Props> = ({navigationClick}: Props) =>  
             </a>
           </p>
           <p>
-            {/*
-            //eslint-disable-next-line */}
             telegram: <a href="https://t.me/humanramen">@humanramen</a>
           </p>
           <p>
-            {/*
-            //eslint-disable-next-line */}
-            vk: <a href="https://vk.com/stolenforest">/unwritten</a>
+            vk: <a href="https://vk.com/unwritten">/unwritten</a>
           </p>
         </div>
 
         <ul className="social-list">
           {socialLinks.map((item, key) => (
             <li key={key}>
-                {/*
-                //eslint-disable-next-line */}
                 <a href={item.href} data-name={item.name}>
                     <img src={item.img} alt="behance" />
                 </a>
