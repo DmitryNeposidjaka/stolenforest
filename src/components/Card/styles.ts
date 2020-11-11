@@ -15,7 +15,7 @@ export const StyledProjectCard = styled.div`
 
   .project-name {
     height: 30px;
-    
+
     color: #f1f2f6;
     opacity: 0.5;
     transition: opacity 0.15s ease-in-out;    
@@ -40,6 +40,11 @@ export const StyledProjectCard = styled.div`
         object-position: center;
 
         filter: grayscale(100%);
+
+        @media (min-width: 768px) {
+          filter: grayscale(0%);
+        }
+
         transition: all 0.3s ease-in-out;
       }
     }

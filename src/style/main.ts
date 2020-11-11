@@ -62,7 +62,7 @@ export const Main = createGlobalStyle`
     color: #fff;
     font: 16px/1.2 'Abel', Arial, sans-serif;
 
-    background-image: url(${bg});
+    background-color: black;
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: cover;
