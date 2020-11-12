@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const StyledProjectCard = styled.div`
   width: 200px;
-    
+  height: max-content;
+
   display: grid;
   grid-auto-flow: row;
   grid-gap: 24px;
@@ -13,7 +14,7 @@ export const StyledProjectCard = styled.div`
   text-align: center;
 
   .project-name {
-    height: 40px;
+    height: 30px;
 
     color: #f1f2f6;
     opacity: 0.5;
@@ -21,11 +22,31 @@ export const StyledProjectCard = styled.div`
   }
 
   .item__image {
-    img {
-      max-width: 150px;
-      margin: 0 auto;
-      filter: grayscale(100%);
-      transition: all 0.3s ease-in-out;
+    width: 100%;
+    height: 200px;
+
+    a {
+      &:hover {
+        opacity: 1;
+      }
+     
+      img {
+        width: 100%;
+        height: 100%;
+
+        margin: 0 auto;
+        
+        object-fit: cover;
+        object-position: center;
+
+        filter: grayscale(100%);
+
+        @media (min-width: 768px) {
+          filter: grayscale(0%);
+        }
+
+        transition: all 0.3s ease-in-out;
+      }
     }
   }
 

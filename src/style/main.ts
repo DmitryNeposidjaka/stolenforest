@@ -62,7 +62,7 @@ export const Main = createGlobalStyle`
     color: #fff;
     font: 16px/1.2 'Abel', Arial, sans-serif;
 
-    background-image: url(${bg});
+    background-color: black;
     background-repeat: no-repeat;
     background-position: center bottom;
     background-size: cover;
@@ -107,11 +107,13 @@ export const Main = createGlobalStyle`
     .page-content-wrapper {
       width: 100%;
       height: max-content;
-      overflow-x: scroll;
+      overflow-x: auto;
     }
 
     .project-list {
       padding: 0 32px;
+
+      height: max-content;
 
       display: grid;
       grid-auto-flow: column;
