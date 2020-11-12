@@ -41,7 +41,7 @@ export const StyledProjectCard = styled.div`
 
         filter: grayscale(100%);
 
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
           filter: grayscale(0%);
         }
 
