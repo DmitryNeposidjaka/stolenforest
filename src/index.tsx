@@ -11,7 +11,7 @@ import data from './data.json'
 const setVhProperty = () =>
   document.documentElement.style.setProperty(
     '--vh',
-    `${window.innerHeight * 0.01}px`
+    `${(window.innerHeight > window.screen.height ? window.screen.height : window.innerHeight) * 0.01}px`
   );
 
 /* Set --vh custom property */
