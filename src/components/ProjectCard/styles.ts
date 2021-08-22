@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledProjectCard = styled.div`
-  width: 200px;
+  width: var(--cardWidth, 200px);
   height: max-content;
 
   display: grid;
   grid-auto-flow: row;
-  grid-gap: 24px;
+  grid-gap: 16px;
   align-items: center;
   justify-items: center;
   
@@ -23,7 +23,8 @@ export const StyledProjectCard = styled.div`
 
   .item__image {
     width: 100%;
-    height: 200px;
+    height: var(--cardWidth, 200px);
+    max-height: 50vh;
 
     a {
       &:hover {
@@ -56,6 +57,14 @@ export const StyledProjectCard = styled.div`
       color: #fff;
       opacity: 0.5;
       transition: opacity 0.15s ease-in-out;
+
+      /* Show only 1 lines of text */
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+
+      text-align: center;
     }
   }
 

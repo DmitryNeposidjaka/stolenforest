@@ -1,21 +1,20 @@
 import * as React from "react";
 
+/* Types */
+import { Project } from '../../types';
+
+/* Styles */
 import { StyledProjectCard } from './styles';
 
-interface Props {
-  name: string;
-  link: string;
-  tags: string[];
-  imageName: string;
-}
+type Props = Project;
 
-const Card: React.FunctionComponent<Props> = ({
+const ProjectCard: React.FunctionComponent<Props> = ({
   name,
   link,
-  tags,
+  tags = [],
   imageName
 }: Props) => {
- const path = require(`./../../assets/images/${imageName}`)
+  const path = require(`./../../assets/images/${imageName}`)
 
   return (
     <StyledProjectCard className="item">
@@ -26,8 +25,8 @@ const Card: React.FunctionComponent<Props> = ({
       <div className="item__image">
         {/*
         //eslint-disable-next-line */}
-        <a href={link} target="__bank">
-          <img src={path.default} alt="Startup Village" />
+        <a href={link} target="__blank">
+          <img src={path.default} alt={name} />
         </a>
       </div>
 
@@ -38,4 +37,4 @@ const Card: React.FunctionComponent<Props> = ({
   );
 }
 
-export { Card }
+export { ProjectCard }
