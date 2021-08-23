@@ -16,8 +16,13 @@ export const StyledProjectCard = styled.div`
   .project-name {
     height: 30px;
 
-    color: #f1f2f6;
+    color: #fff;
     opacity: 0.5;
+
+    @media (max-width: 768px) {
+      opacity: 1;
+    }
+
     transition: opacity 0.15s ease-in-out;    
   }
 
@@ -56,6 +61,11 @@ export const StyledProjectCard = styled.div`
       font-size: 19px;
       color: #fff;
       opacity: 0.5;
+
+      @media (max-width: 768px) {
+        opacity: 1;
+      }
+
       transition: opacity 0.15s ease-in-out;
 
       /* Show only 1 lines of text */

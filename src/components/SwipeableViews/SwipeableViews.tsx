@@ -38,8 +38,8 @@ const SwipeableViews: React.FC<Props> = React.memo(
     }, []);
 
     const [springs, api] = useSprings(childrenArray.length, i => {
-      index.current = 0; 
-      
+      index.current = 0;
+
       return {
         x: i * width
       }
@@ -91,7 +91,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
           x: (i - index.current) * width,
         };
       });
-    }, []);
+    }, [width]);
 
     return (
       <>
@@ -111,13 +111,13 @@ const SwipeableViews: React.FC<Props> = React.memo(
 
         {renderPrevBtn && (
           <StyledBackButton onClick={() => changeViewIndex(index.current - 1)}>
-            &#8668;
+            &#10147;
           </StyledBackButton>
         )}
 
         {renderNextBtn && (
           <StyledNextButton onClick={() => changeViewIndex(index.current + 1)}>
-            &#8669;
+            &#10147;
           </StyledNextButton>
         )}
       </>

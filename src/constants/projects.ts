@@ -51,7 +51,7 @@ export const projects: {
       name: 'Stolentiq Studio Logo',
       link: 'https://vimeo.com/356151200',
       imageName: 'stolentiq_studio.jpg',
-      tags: ['short', '2d', 'short']
+      tags: ['short', '2d']
     },
     {
       name: 'Startup Village',

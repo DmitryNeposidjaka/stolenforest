@@ -17,6 +17,9 @@ const StyledControlsButton = styled.button`
   width: 50px;
   height: 50px;
 
+  padding: 0;
+  cursor: pointer;
+  
   display: grid;
   place-content: center;
 
@@ -25,19 +28,21 @@ const StyledControlsButton = styled.button`
   transform: translateY(-50%);
   
   color: #fff;
-  font-size: 50px;
+  font-size: 40px;
+
 
   border: none;
   border-radius: 50%;
-  background-color: #000;
-  box-shadow: 0px 0px 2px 5px #000000;
-  text-shadow: 1px 2px 2px #ef3de1;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: 2px 3px 2px #000000, 2px -2px 2px black;
 `
 
 export const StyledNextButton = styled(StyledControlsButton)`
-  right: 16px;
+  right: 6px;
 `
 
 export const StyledBackButton = styled(StyledControlsButton)`
-  left: 16px;
+  left: 6px;
+  transform: scale(-1) translateY(24px);
 `

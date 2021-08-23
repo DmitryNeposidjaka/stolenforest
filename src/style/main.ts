@@ -24,10 +24,6 @@ export const Main = createGlobalStyle`
     display: grid;
     place-items: center;
 
-    @media (min-width: 768px) {
-      place-items: flex-end;
-    }
-
     .logo {
       max-width: 15vmax;
 
@@ -132,15 +128,15 @@ export const Main = createGlobalStyle`
 
       &[href="#portfolio"] {
         span.link-text::before {
-          content: '\\2933';
-          transform: scaleX(-5) translateX(-1px) rotate(-90deg);
+          content: '\\27A3';
+          transform: rotate(-90deg) scaleY(4.6);
         }
       }
 
       &[href="#contacts"] {
         span.link-text::after {
-          content: '\\21AF';
-          transform: scaleX(6);
+          content: '\\27A3';
+          transform: rotate(90deg) scaleY(4.6);
         }
       }
     }
