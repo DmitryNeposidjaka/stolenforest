@@ -7,9 +7,10 @@ import { Project } from '../../types';
 
 /* Components */
 import { ProjectCard } from "../ProjectCard/ProjectCard";
+import { SwipeableViews } from '../SwipeableViews/SwipeableViews';
 
 /* Styled */
-import { StyledProjectSwipeableViews } from './styles';
+import { StyledProjectGroup, StyledNextButton, StyledBackButton } from './styles';
 
 type Props = {
   data: Project[];
@@ -25,58 +26,42 @@ const listConfig = {
 };
 
 const ProjectList: React.FunctionComponent<Props> = ({ data }: Props) => {
-  const [listDimensions, setDimensions] = React.useState({
-    width: window.innerWidth - listConfig.correction,
-    itemsCount: Math.floor((window.innerWidth - listConfig.correction) / listConfig.defaultItemSize) 
-  });
-
-  const debouncedCallback = useDebouncedCallback(
-    (vw: number, vh: number) => {
-      const width = vw - listConfig.correction;
-      const itemsCount = Math.floor(width / listConfig.defaultItemSize);
-      
-      setDimensions({
-        width,
-        itemsCount: itemsCount <= 0 ? 1 : itemsCount
-      });
-    },
-    500
-  );
-  
-  React.useEffect(() => {
-    const resizeHandler = _ => {
-      debouncedCallback(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', resizeHandler);
-
-    return () => {
-      window.removeEventListener('resize', resizeHandler);
-    };
-  }, []);
-
   return (
-    <StyledProjectSwipeableViews
-      width={listDimensions.width} 
-      style={{ 
-        //@ts-ignore
-        '--itemsCount': listDimensions.itemsCount, 
-        '--listPaddingLeftRight': `${listConfig.paddingLeftRight}px`,
-        '--listGap': `${listConfig.gap}px`,
-        '--listItemSize': `${
-          (listDimensions.width - listDimensions.itemsCount * listConfig.gap) 
-          / listDimensions.itemsCount
-        }px`
-      }}
+    <SwipeableViews 
+      config={listConfig} 
+      renderControls={({ activeViewIndex, viewsCount, changeViewIndex }) => (
+        <>
+          {activeViewIndex !== 0 && (
+            <StyledBackButton onClick={() => changeViewIndex(activeViewIndex - 1)}>
+              &#10147;
+            </StyledBackButton>
+          )}
+
+          {activeViewIndex !== viewsCount - 1 && (
+            <StyledNextButton onClick={() => changeViewIndex(activeViewIndex + 1)}>
+              &#10147;
+            </StyledNextButton>
+          )}
+        </>
+      )}
     >
-      {splitEvery(listDimensions.itemsCount, data).map((itemsGroup, key) => (
-        <div key={key} className="project-group">
+      {({ listDimensions }) => splitEvery(listDimensions.itemsCount, data).map((itemsGroup, key) => (
+        <StyledProjectGroup key={key} style={{
+          //@ts-ignore
+            '--itemsCount': listDimensions.itemsCount, 
+            '--listPaddingLeftRight': `${listConfig.paddingLeftRight}px`,
+            '--listGap': `${listConfig.gap}px`,
+            '--listItemSize': `${
+              (listDimensions.width - listDimensions.itemsCount * listConfig.gap) 
+              / listDimensions.itemsCount
+            }px`,
+        }}>
           {itemsGroup.map((props, key) => (
             <ProjectCard key={key} {...props} />
           ))}
-        </div>
+        </StyledProjectGroup>
       ))}
-    </StyledProjectSwipeableViews>
+    </SwipeableViews>
   );
 }
 

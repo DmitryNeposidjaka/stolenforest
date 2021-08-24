@@ -2,33 +2,118 @@ import * as React from 'react';
 import clamp from 'ramda/src/clamp';
 import { useSprings, to } from 'react-spring';
 import { useDrag } from 'react-use-gesture';
+import { useDebouncedCallback } from 'use-debounce';
 
 /* Styles */
-import { StyledSwipeableViews, StyledNextButton, StyledBackButton } from './styles';
+import { StyledSwipeableViews } from './styles';
+
+type ListConfig = {
+  defaultItemSize: number;
+  paddingLeftRight: number;
+  gap: number;
+  correction: number;
+};
+
+type ListDimensions = {
+  width: number;
+  height: number;
+  itemsCount: number;
+};
+
+type ViewProps = Partial<{
+  listDimensions: ListDimensions;
+  activeViewIndex: number;
+  viewsCount: number;
+  changeViewIndex: (index: number) => void;
+}>;
+
+type View = string | string[] | JSX.Element | JSX.Element[];
+type ViewFunction = (props?: ViewProps) => View;
 
 type Props = Partial<{
   className: string;
-  children: string | string[] | JSX.Element | JSX.Element[];
+  children: ViewFunction | View;
   style: React.CSSProperties;
-  width: number;
+  axis: 'x' | 'y';
+  config: ListConfig;
+  renderControls: (props?: ViewProps) => JSX.Element | JSX.Element[];
 }> &
   Omit<React.DOMAttributes<HTMLDivElement>, 'children'>;
+
+const flattenChildren = children =>
+  (React.Children.toArray(children).reduce(
+    (acc: any[], child: any) =>
+      child.type === Symbol.for('react.fragment')
+        ? acc.concat(child.props.children)
+        : acc.concat(child),
+    []
+  )).filter(child => !!child);
 
 const SwipeableViews: React.FC<Props> = React.memo(
   ({
     children = [],
     style = {},
-    width = window.innerWidth,
+    axis = 'x',
+    config = {
+      defaultItemSize: axis === 'x' ? window.innerWidth : window.innerHeight,
+      paddingLeftRight: 0,
+      gap: 0,
+      get correction() {
+        return 2 * this.paddingLeftRight - this.gap
+      } 
+    },
+    renderControls,
     ...restHtmlAttributes
   }: Props) => {
-    const childrenArray: any  = React.useMemo(
-      () => React.Children.toArray(children),
-      [children]
-    );
 
     const index = React.useRef(0);
 
-    const [[renderPrevBtn, renderNextBtn], setControlsVisibility] = React.useState<boolean[]>([false, true]);
+    const [listDimensions, setDimensions] = React.useState<ListDimensions>({
+      width: window.innerWidth - config.correction,
+      height: window.innerHeight,
+      itemsCount: Math.floor((window.innerWidth - config.correction) / config.defaultItemSize) 
+    });
+
+    const [[showPrevBtn, showNextBtn], setControlsVisibility] = React.useState<boolean[]>([false, true]);
+
+    const childrenArray = React.useMemo(
+      () => 
+        flattenChildren(
+          typeof children === 'function' 
+          ? children({ 
+              listDimensions, 
+              activeViewIndex: 0,
+            })
+          : children
+        ),
+      [children]
+    );
+
+    const debouncedCallback = useDebouncedCallback(
+      (vw: number, vh: number) => {
+        const width = vw - config.correction;
+        const itemsCount = Math.floor(width / config.defaultItemSize);
+        
+        setDimensions({
+          width,
+          height: vh,
+          itemsCount: itemsCount <= 0 ? 1 : itemsCount
+        });
+      },
+      500
+    );
+
+    React.useEffect(() => {
+      const resizeHandler = _ => {
+        debouncedCallback(window.innerWidth, window.innerHeight);
+      };
+
+      window.addEventListener('resize', resizeHandler);
+
+      return () => {
+        window.removeEventListener('resize', resizeHandler);
+      };
+    }, []);
 
     const toggleControls = React.useCallback((index: number) => {
       setControlsVisibility([
@@ -41,17 +126,18 @@ const SwipeableViews: React.FC<Props> = React.memo(
       index.current = 0;
 
       return {
-        x: i * width
+        x: i * listDimensions.width,
+        y: i * listDimensions.height
       }
-    }, [width]);
+    }, [listDimensions]);
 
     const bind = useDrag(
-      ({ active, movement: [mx], direction: [xDir], distance, cancel }) => {
-        if (active && distance > width / 3) {
+      ({ active, movement: [mx, my], direction: [xDir, yDir], distance, cancel }) => {
+        if (active && distance > (axis === 'x' ? listDimensions.width : listDimensions.height) / 3) {
           const clampedIndex = clamp(
             0,
             childrenArray.length - 1,
-            index.current + (xDir > 0 ? -1 : 1)
+            index.current + ((axis === 'x' ? xDir : yDir) > 0 ? -1 : 1)
           );
 
           toggleControls(clampedIndex);
@@ -65,12 +151,13 @@ const SwipeableViews: React.FC<Props> = React.memo(
 
         api.start(i => {
           return {
-            x: (i - index.current) * width + (active ? mx : 0)
+            x: (i - index.current) * listDimensions.width + (active ? mx : 0),
+            y: (i - index.current) * listDimensions.height + (active ? my : 0),
           };
         });
       },
       { 
-        axis: 'x', 
+        axis, 
         filterTaps: true 
       }
     );
@@ -88,38 +175,42 @@ const SwipeableViews: React.FC<Props> = React.memo(
 
       api.start(i => {
         return {
-          x: (i - index.current) * width,
+          x: (i - index.current) * listDimensions.width,
+          y: (i - index.current) * listDimensions.height,
         };
       });
-    }, [width]);
+    }, [listDimensions]);
 
     return (
       <>
-        {springs.map(({ x }, key) => (
+        {springs.map(({ x, y }, key) => (
           <StyledSwipeableViews
             key={key}
             style={{
               ...style,
-              transform: to([x], x => `translateX(${x}px)`)
+              touchAction: axis === 'x' ? 'pan-y' : 'pan-x',
+              transform: to([x, y], (x, y) => axis === 'x' ? `translateX(${x}px)` : `translateY(${y}px)`)
             }}
             {...bind()}
             {...restHtmlAttributes}
           >
-            {childrenArray[key]}
+            {flattenChildren(
+              typeof children === 'function'    
+              ? children({
+                  listDimensions,
+                  activeViewIndex: index.current,
+                  viewsCount: childrenArray.length,
+                  changeViewIndex
+                })
+              : childrenArray)[key]}
           </StyledSwipeableViews>
         ))}
 
-        {renderPrevBtn && (
-          <StyledBackButton onClick={() => changeViewIndex(index.current - 1)}>
-            &#10147;
-          </StyledBackButton>
-        )}
-
-        {renderNextBtn && (
-          <StyledNextButton onClick={() => changeViewIndex(index.current + 1)}>
-            &#10147;
-          </StyledNextButton>
-        )}
+        {renderControls?.({
+          activeViewIndex: index.current,
+          viewsCount: childrenArray.length,
+          changeViewIndex
+        })}
       </>
     );
   }

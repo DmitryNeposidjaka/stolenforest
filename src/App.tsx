@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 
 /* Components */
 import { ProjectList } from "./components/ProjectList/ProjectList";
+import { SwipeableViews } from './components/SwipeableViews/SwipeableViews';
 
 /* Assets */
 import { projects } from './constants/projects'
@@ -54,91 +56,107 @@ const socialLinks = [
 ];
 
 const App = React.memo(() => {
-  const handleSmoothScroll = React.useCallback((e: any) => {
-    e.preventDefault();
-
-    const scrollToSelector = e.currentTarget.getAttribute('href');
-
-    document.querySelector(scrollToSelector).scrollIntoView({
-      behavior: 'smooth'
-    });
-  }, []);
-
   return (
-   <>
-      <header id="header">
-        <img src={logo} alt='STOLENTIQ STUDIO' className="logo" />
-      </header>
+    <SwipeableViews axis="y">
+      {({ activeViewIndex, changeViewIndex }) => (
+        <>
+          <section id="portfolio" className="page">
+            <img 
+              id="stolentiq-logo" 
+              src={logo} 
+              alt='STOLENTIQ STUDIO LOGO'
+            />
 
-      <section id="portfolio" className="page">
-        {/*
-        //eslint-disable-next-line */}
-        <a href="#fun" className="link-to-section down" onClick={handleSmoothScroll}>
-          <span className="link-text">
-            FUN 
-          </span>
-        </a>
+            {/*
+            //eslint-disable-next-line */}
+            <a href="#fun" className="link-to-section down" 
+              onClick={(e: any) => { 
+                e.preventDefault(); 
+                changeViewIndex(activeViewIndex + 1)
+              }}
+            >
+              <span className="link-text">
+                FUN 
+              </span>
+            </a>
 
-        <ProjectList data={projects.portfolio} />
-      </section>
+            <ProjectList data={projects.portfolio} />
+          </section>
 
-      <section id="fun" className="page">
+          <section id="fun" className="page">
 
-        {/*
-        //eslint-disable-next-line */}
-        <a href="#portfolio" className="link-to-section up" onClick={handleSmoothScroll}>
-          <span className="link-text">Portfolio</span>
-        </a>
+            {/*
+            //eslint-disable-next-line */}
+            <a href="#portfolio" className="link-to-section up" 
+              onClick={(e: any) => { 
+                e.preventDefault(); 
+                changeViewIndex(activeViewIndex - 1)
+              }}
+            >
+              <span className="link-text">Portfolio</span>
+            </a>
 
-        {/*
-        //eslint-disable-next-line */}
-        <a href="#contacts" className="link-to-section down" onClick={handleSmoothScroll}>
-          <span className="link-text">Contacts</span>
-        </a>
+            {/*
+            //eslint-disable-next-line */}
+            <a href="#contacts" className="link-to-section down" 
+              onClick={(e: any) => { 
+                e.preventDefault(); 
+                changeViewIndex(activeViewIndex + 1)
+              }}
+            >
+              <span className="link-text">Contacts</span>
+            </a>
 
-        <ProjectList data={projects.fun} />
-      </section>
+            <ProjectList data={projects.fun} />
+          </section>
 
-      <section id="contacts" className="page">
-        {/*
-        //eslint-disable-next-line */}
-        <a href="#portfolio" className="link-to-section up" onClick={handleSmoothScroll}>
-          <span className="link-text">UP</span>
-        </a>
+          <section id="contacts" className="page">
+            {/*
+            //eslint-disable-next-line */}
+            <a href="#portfolio" className="link-to-section up"  
+              onClick={(e: any) => { 
+                e.preventDefault(); 
+                changeViewIndex(0)
+              }}
+            >
+              <span className="link-text">UP</span>
+            </a>
 
-        <div className="contacts-page-wrapper">
-          <p className="descripton">
-            We provide original music and sound design for films, animation,
-            motion graphics, TV, commercial and games!
-          </p>
-          
-          <div className="main-links-wrapper">
-            <p>
-              e-mail:{' '}
-              <a href="mailto:stolenforest@gmail.com">
-                stolenforest@gmail.com
-              </a>
-            </p>
-            <p>
-              telegram: <a href="https://t.me/humanramen">@humanramen</a>
-            </p>
-            <p>
-              vk: <a href="https://vk.com/unwritten">/unwritten</a>
-            </p>
-          </div>
-
-          <ul className="social-list">
-            {socialLinks.map((item, key) => (
-              <li key={key}>
-                  <a href={item.href} data-name={item.name}>
-                    <img src={item.img} alt={item.name} />
+            <div className="contacts-page-wrapper">
+              <p className="descripton">
+                We provide original music and sound design for films, animation,
+                motion graphics, TV, commercial and games!
+              </p>
+              
+              <div className="main-links-wrapper">
+                <p>
+                  e-mail:{' '}
+                  <a href="mailto:stolenforest@gmail.com">
+                    stolenforest@gmail.com
                   </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-   </>
+                </p>
+                <p>
+                  telegram: <a href="https://t.me/humanramen">@humanramen</a>
+                </p>
+                <p>
+                  vk: <a href="https://vk.com/unwritten">/unwritten</a>
+                </p>
+              </div>
+
+              <ul className="social-list">
+                {socialLinks.map((item, key) => (
+                  <li key={key}>
+                      <a href={item.href} data-name={item.name}>
+                        <img src={item.img} alt={item.name} />
+                      </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </>
+      )}
+    </SwipeableViews>
   );
 })
 

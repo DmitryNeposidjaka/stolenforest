@@ -7,30 +7,10 @@ export const Main = createGlobalStyle`
 
   #root {
     width: 100%;
-    max-width: var(--maxWidth);
+    height: var(--screenHeight);
     margin: 0 auto;
     position: relative;
     overflow: hidden;
-  }
-
-  #header {
-    width: 100%;
-    padding: 16px;
-
-    top: 0;
-    left: 0;
-    position: absolute;
-
-    display: grid;
-    place-items: center;
-
-    .logo {
-      max-width: 15vmax;
-
-      @media (min-width: 768px) {
-        max-width: 15vmin;
-      }
-    }
   }
 
   html {
@@ -139,6 +119,19 @@ export const Main = createGlobalStyle`
           transform: rotate(90deg) scaleY(4.6);
         }
       }
+    }
+  }
+
+  img#stolentiq-logo {
+    left: 50%;
+    top: 16px;
+    position: absolute;
+    transform: translateX(-50%);
+
+    max-width: 15vmax;
+
+    @media (min-width: 768px) {
+      max-width: 15vmin;
     }
   }
 

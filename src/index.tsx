@@ -19,10 +19,7 @@ setVhProperty();
 
 /* Update --vh custom property on resize and on orientationchange */
 ['resize', 'orientationchange'].forEach(event =>
-  window.addEventListener(event, () => {
-    window.scrollTo(0,0);
-    setVhProperty();
-  }, false)
+  window.addEventListener(event, setVhProperty, false)
 );
 
 const Root: React.FC = () => {
