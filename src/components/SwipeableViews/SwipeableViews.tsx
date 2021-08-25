@@ -74,7 +74,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
   }: Props) => {
     const forceUpdate = useForceUpdate();
 
-    const index = React.useRef(history.state[name]);
+    const index = React.useRef(history.state?.[name] ?? 0);
 
     const [listDimensions, setDimensions] = React.useState<ListDimensions>({
       width: window.innerWidth - config.correction,
