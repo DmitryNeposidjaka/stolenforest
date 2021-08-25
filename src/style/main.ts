@@ -87,7 +87,7 @@ export const Main = createGlobalStyle`
           place-self: center;
 
           font-size: 24px;
-          text-shadow: 1px 1px 1px #ef3de1;
+          text-shadow: 1px 1px 1px #ef3d6e;
         }
       }
 
@@ -102,21 +102,21 @@ export const Main = createGlobalStyle`
       &[href="#fun"] {
         span.link-text::after {
           content: '\\27A3';
-          transform: rotate(90deg) scaleY(4.6);
+          transform: rotate(90deg) scaleY(3);
         }
       }
 
       &[href="#portfolio"] {
         span.link-text::before {
           content: '\\27A3';
-          transform: rotate(-90deg) scaleY(4.6);
+          transform: rotate(-90deg) scaleY(3);
         }
       }
 
       &[href="#contacts"] {
         span.link-text::after {
           content: '\\27A3';
-          transform: rotate(90deg) scaleY(4.6);
+          transform: rotate(90deg) scaleY(3);
         }
       }
     }

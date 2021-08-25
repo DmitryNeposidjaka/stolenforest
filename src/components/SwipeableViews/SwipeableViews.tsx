@@ -34,9 +34,11 @@ type Props = Partial<{
   className: string;
   children: ViewFunction | View;
   style: React.CSSProperties;
+  name: string;
   axis: 'x' | 'y';
   config: ListConfig;
   renderControls: (props?: ViewProps) => JSX.Element | JSX.Element[];
+  onIndexChange: (index: number) => void;
 }> &
   Omit<React.DOMAttributes<HTMLDivElement>, 'children'>;
 
@@ -49,32 +51,36 @@ const flattenChildren = children =>
     []
   )).filter(child => !!child);
 
+const useForceUpdate = () => {
+  const [, setIt] = React.useState(false);
+  return () => setIt(it => !it);
+};
+
 const SwipeableViews: React.FC<Props> = React.memo(
   ({
     children = [],
     style = {},
+    name,
     axis = 'x',
     config = {
       defaultItemSize: axis === 'x' ? window.innerWidth : window.innerHeight,
       paddingLeftRight: 0,
       gap: 0,
-      get correction() {
-        return 2 * this.paddingLeftRight - this.gap
-      } 
+      correction: 0
     },
     renderControls,
+    onIndexChange,
     ...restHtmlAttributes
   }: Props) => {
+    const forceUpdate = useForceUpdate();
 
-    const index = React.useRef(0);
+    const index = React.useRef(history.state[name]);
 
     const [listDimensions, setDimensions] = React.useState<ListDimensions>({
       width: window.innerWidth - config.correction,
       height: window.innerHeight,
       itemsCount: Math.floor((window.innerWidth - config.correction) / config.defaultItemSize) 
     });
-
-    const [[showPrevBtn, showNextBtn], setControlsVisibility] = React.useState<boolean[]>([false, true]);
 
     const childrenArray = React.useMemo(
       () => 
@@ -92,11 +98,12 @@ const SwipeableViews: React.FC<Props> = React.memo(
     const debouncedCallback = useDebouncedCallback(
       (vw: number, vh: number) => {
         const width = vw - config.correction;
+        const height = vh - config.correction;
         const itemsCount = Math.floor(width / config.defaultItemSize);
         
         setDimensions({
           width,
-          height: vh,
+          height,
           itemsCount: itemsCount <= 0 ? 1 : itemsCount
         });
       },
@@ -115,24 +122,19 @@ const SwipeableViews: React.FC<Props> = React.memo(
       };
     }, []);
 
-    const toggleControls = React.useCallback((index: number) => {
-      setControlsVisibility([
-        index > 0, 
-        index < childrenArray.length - 1
-      ])
-    }, []);
-
     const [springs, api] = useSprings(childrenArray.length, i => {
-      index.current = 0;
+      index.current = history.state[name];
 
       return {
-        x: i * listDimensions.width,
-        y: i * listDimensions.height
+        x: (i - index.current) * listDimensions.width,
+        y: (i - index.current) * listDimensions.height,
       }
     }, [listDimensions]);
 
     const bind = useDrag(
-      ({ active, movement: [mx, my], direction: [xDir, yDir], distance, cancel }) => {
+      ({ event, active, movement: [mx, my], direction: [xDir, yDir], distance, cancel }) => {
+        event.stopPropagation();
+
         if (active && distance > (axis === 'x' ? listDimensions.width : listDimensions.height) / 3) {
           const clampedIndex = clamp(
             0,
@@ -140,7 +142,9 @@ const SwipeableViews: React.FC<Props> = React.memo(
             index.current + ((axis === 'x' ? xDir : yDir) > 0 ? -1 : 1)
           );
 
-          toggleControls(clampedIndex);
+          forceUpdate();
+
+          onIndexChange?.(clampedIndex);
 
           cancel(
             //@ts-ignore
@@ -158,7 +162,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
       },
       { 
         axis, 
-        filterTaps: true 
+        filterTaps: true,
       }
     );
 
@@ -169,7 +173,9 @@ const SwipeableViews: React.FC<Props> = React.memo(
 
       const clampedIndex = clamp(0, childrenArray.length - 1, newIndex);
 
-      toggleControls(clampedIndex);
+      forceUpdate();
+
+      onIndexChange?.(clampedIndex);
 
       index.current = clampedIndex;
 

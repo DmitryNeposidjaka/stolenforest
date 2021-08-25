@@ -16,8 +16,8 @@ export const StyledProjectGroup = styled.div`
 `;
 
 const StyledControlsButton = styled.button`
-  width: 50px;
-  height: 50px;
+  width: auto;
+  height: auto;
 
   padding: 0;
   cursor: pointer;
@@ -30,21 +30,25 @@ const StyledControlsButton = styled.button`
   transform: translateY(-50%);
   
   color: #fff;
-  font-size: 40px;
-
+  font-size: 24px;
 
   border: none;
   border-radius: 50%;
   background: transparent;
   box-shadow: none;
-  text-shadow: 2px 3px 2px #000000, 2px -2px 2px black;
+  text-shadow: 1px 1px 1px #00f3ff;
+
+  &:disabled {
+    opacity: 0.3;
+  }
 `
 
 export const StyledNextButton = styled(StyledControlsButton)`
-  right: 6px;
+  right: 16px;
+  transform: scaleX(1.2) scaleY(2.5);
 `
 
 export const StyledBackButton = styled(StyledControlsButton)`
-  left: 6px;
-  transform: scale(-1) translateY(24px);
+  left: 16px;
+  transform: scaleX(-1.2) scaleY(2.5);
 `

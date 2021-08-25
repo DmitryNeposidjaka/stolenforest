@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useDebouncedCallback } from 'use-debounce';
+import isEmpty from 'ramda/src/isEmpty';
 
 /* Components */
 import { ProjectList } from "./components/ProjectList/ProjectList";
@@ -55,9 +56,27 @@ const socialLinks = [
   }
 ];
 
+if (isEmpty(history.state)) {
+  history.pushState({
+    ...history.state,
+    app: 0,
+    portfolio: 0,
+    fun: 0
+  }, '');
+}
+
 const App = React.memo(() => {
   return (
-    <SwipeableViews axis="y">
+    <SwipeableViews 
+      name="app"
+      axis="y" 
+      onIndexChange={i => 
+        history.pushState({ 
+          ...history.state,
+          app: i 
+        }, '')
+      }
+    >
       {({ activeViewIndex, changeViewIndex }) => (
         <>
           <section id="portfolio" className="page">
@@ -80,7 +99,7 @@ const App = React.memo(() => {
               </span>
             </a>
 
-            <ProjectList data={projects.portfolio} />
+            <ProjectList name="portfolio" data={projects.portfolio} />
           </section>
 
           <section id="fun" className="page">
@@ -107,7 +126,7 @@ const App = React.memo(() => {
               <span className="link-text">Contacts</span>
             </a>
 
-            <ProjectList data={projects.fun} />
+            <ProjectList name="fun" data={projects.fun} />
           </section>
 
           <section id="contacts" className="page">

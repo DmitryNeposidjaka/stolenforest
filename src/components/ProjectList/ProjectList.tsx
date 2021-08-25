@@ -13,6 +13,7 @@ import { SwipeableViews } from '../SwipeableViews/SwipeableViews';
 import { StyledProjectGroup, StyledNextButton, StyledBackButton } from './styles';
 
 type Props = {
+  name: 'portfolio' | 'fun';
   data: Project[];
 }
 
@@ -25,42 +26,58 @@ const listConfig = {
   } 
 };
 
-const ProjectList: React.FunctionComponent<Props> = ({ data }: Props) => {
+const ProjectList: React.FunctionComponent<Props> = ({ name, data }: Props) => {
   return (
     <SwipeableViews 
+      axis="x"
       config={listConfig} 
+      name={name}
+      onIndexChange={i => 
+        history.pushState({ 
+          ...history.state,
+          [name]: i 
+        }, '')
+      }
       renderControls={({ activeViewIndex, viewsCount, changeViewIndex }) => (
         <>
-          {activeViewIndex !== 0 && (
-            <StyledBackButton onClick={() => changeViewIndex(activeViewIndex - 1)}>
-              &#10147;
-            </StyledBackButton>
-          )}
+          <StyledBackButton 
+            disabled={activeViewIndex === 0}
+            onClick={() => changeViewIndex(activeViewIndex - 1)}
+          >
+            &#10147;
+          </StyledBackButton>
 
-          {activeViewIndex !== viewsCount - 1 && (
-            <StyledNextButton onClick={() => changeViewIndex(activeViewIndex + 1)}>
-              &#10147;
-            </StyledNextButton>
-          )}
+        
+          <StyledNextButton 
+            disabled={activeViewIndex === viewsCount - 1}
+            onClick={() => changeViewIndex(activeViewIndex + 1)}
+          >
+            &#10147;
+          </StyledNextButton>
         </>
       )}
     >
-      {({ listDimensions }) => splitEvery(listDimensions.itemsCount, data).map((itemsGroup, key) => (
-        <StyledProjectGroup key={key} style={{
-          //@ts-ignore
-            '--itemsCount': listDimensions.itemsCount, 
-            '--listPaddingLeftRight': `${listConfig.paddingLeftRight}px`,
-            '--listGap': `${listConfig.gap}px`,
-            '--listItemSize': `${
-              (listDimensions.width - listDimensions.itemsCount * listConfig.gap) 
-              / listDimensions.itemsCount
-            }px`,
-        }}>
-          {itemsGroup.map((props, key) => (
-            <ProjectCard key={key} {...props} />
-          ))}
-        </StyledProjectGroup>
-      ))}
+      {({ listDimensions }) => 
+        splitEvery(listDimensions.itemsCount, data).map((itemsGroup, key) => (
+          <StyledProjectGroup 
+            key={key} 
+            style={{
+              //@ts-ignore
+              '--itemsCount': listDimensions.itemsCount, 
+              '--listPaddingLeftRight': `${listConfig.paddingLeftRight}px`,
+              '--listGap': `${listConfig.gap}px`,
+              '--listItemSize': `${
+                (listDimensions.width - listDimensions.itemsCount * listConfig.gap) 
+                / listDimensions.itemsCount
+              }px`,
+            }}
+          >
+            {itemsGroup.map((props, key) => (
+              <ProjectCard key={key} {...props} />
+            ))}
+          </StyledProjectGroup>
+        ))
+      }
     </SwipeableViews>
   );
 }
