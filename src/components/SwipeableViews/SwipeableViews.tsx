@@ -123,7 +123,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
     }, []);
 
     const [springs, api] = useSprings(childrenArray.length, i => {
-      index.current = history.state[name];
+      index.current = history.state?.[name] ?? 0;
 
       return {
         x: (i - index.current) * listDimensions.width,
