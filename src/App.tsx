@@ -45,11 +45,6 @@ const socialLinks = [
     img: facebook
   },
   {
-    name: 'vk',
-    href: 'https://vk.com/stolenforest',
-    img: vk
-  },
-  {
     name: 'instagram',
     href: 'https://www.instagram.com/stolentiq_studio',
     img: instagram
