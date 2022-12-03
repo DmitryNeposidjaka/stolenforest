@@ -152,9 +152,6 @@ const App = React.memo(() => {
                 <p>
                   telegram: <a href="https://t.me/humanramen">@humanramen</a>
                 </p>
-                <p>
-                  vk: <a href="https://vk.com/unwritten">/unwritten</a>
-                </p>
               </div>
 
               <ul className="social-list">
