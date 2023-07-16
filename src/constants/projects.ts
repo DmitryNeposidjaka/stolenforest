@@ -17,12 +17,12 @@ export const projects: {
       imageName: 'nintendo_switch_colors.jpg',
       tags: ['3d']
     },
-    {
-      name: 'Woodman Barbershop',
-      link: 'https://vimeo.com/233327925',
-      imageName: 'woodman_barbershop.jpg',
-      tags: ['video']
-    },
+    // {
+    //   name: 'Woodman Barbershop',
+    //   link: 'https://vimeo.com/233327925',
+    //   imageName: 'woodman_barbershop.jpg',
+    //   tags: ['video']
+    // },
     {
       name: 'Super Bawl Party',
       link: 'https://vimeo.com/322482382',
@@ -71,12 +71,12 @@ export const projects: {
       imageName: 'dostaviasta.jpg',
       tags: ['2d']
     },
-    {
-      name: 'Skovoroda',
-      link: 'https://vimeo.com/226175013',
-      imageName: 'skovoroda.jpg',
-      tags: ['video']
-    },
+    // {
+    //   name: 'Skovoroda',
+    //   link: 'https://vimeo.com/226175013',
+    //   imageName: 'skovoroda.jpg',
+    //   tags: ['video']
+    // },
     {
       name: 'Project 33',
       link: 'https://vimeo.com/214732794',
@@ -119,18 +119,18 @@ export const projects: {
       imageName: 'frank_casino_5.jpg',
       tags: ['2d']
     },
-    {
-      name: 'Phoenix Logo',
-      link: 'https://vimeo.com/229707569',
-      imageName: 'pheonix_logo.jpg',
-      tags: ['short']
-    },
-    {
-      name: 'Breakfast',
-      link: 'https://vimeo.com/228265561',
-      imageName: 'breakfast.jpg',
-      tags: ['video']
-    }
+    // {
+    //   name: 'Phoenix Logo',
+    //   link: 'https://vimeo.com/229707569',
+    //   imageName: 'pheonix_logo.jpg',
+    //   tags: ['short']
+    // },
+    // {
+    //   name: 'Breakfast',
+    //   link: 'https://vimeo.com/228265561',
+    //   imageName: 'breakfast.jpg',
+    //   tags: ['video']
+    // }
   ],
   fun: [
     {
