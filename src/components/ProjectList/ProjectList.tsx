@@ -38,7 +38,7 @@ const ProjectList: React.FunctionComponent<Props> = ({ name, data }: Props) => {
           [name]: i 
         }, '')
       }
-      renderControls={({ activeViewIndex, viewsCount, changeViewIndex }) => (
+      renderControls={({ activeViewIndex, viewsCount, changeViewIndex }: any) => (
         <>
           <StyledBackButton 
             disabled={activeViewIndex === 0}
@@ -57,7 +57,7 @@ const ProjectList: React.FunctionComponent<Props> = ({ name, data }: Props) => {
         </>
       )}
     >
-      {({ listDimensions }) => 
+      {({ listDimensions }: any) => 
         splitEvery(listDimensions.itemsCount, data).map((itemsGroup, key) => (
           <StyledProjectGroup 
             key={key} 

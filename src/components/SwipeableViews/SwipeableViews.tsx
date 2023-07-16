@@ -42,7 +42,7 @@ type Props = Partial<{
 }> &
   Omit<React.DOMAttributes<HTMLDivElement>, 'children'>;
 
-const flattenChildren = children =>
+const flattenChildren = (children: any) =>
   (React.Children.toArray(children).reduce(
     (acc: any[], child: any) =>
       child.type === Symbol.for('react.fragment')
@@ -74,7 +74,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
   }: Props) => {
     const forceUpdate = useForceUpdate();
 
-    const index = React.useRef(history.state?.[name] ?? 0);
+    const index = React.useRef(history.state?.[name as string] ?? 0);
 
     const [listDimensions, setDimensions] = React.useState<ListDimensions>({
       width: window.innerWidth - config.correction,
@@ -111,7 +111,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
     );
 
     React.useEffect(() => {
-      const resizeHandler = _ => {
+      const resizeHandler = () => {
         debouncedCallback(window.innerWidth, window.innerHeight);
       };
 
@@ -123,7 +123,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
     }, []);
 
     const [springs, api] = useSprings(childrenArray.length, i => {
-      index.current = history.state?.[name] ?? 0;
+      index.current = history.state?.[name as string] ?? 0;
 
       return {
         x: (i - index.current) * listDimensions.width,
@@ -166,6 +166,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
       }
     );
 
+
     const changeViewIndex = React.useCallback((newIndex: number) => {
       if (index.current === newIndex) {
         return;
@@ -185,7 +186,7 @@ const SwipeableViews: React.FC<Props> = React.memo(
           y: (i - index.current) * listDimensions.height,
         };
       });
-    }, [listDimensions]);
+    }, [children, listDimensions]);
 
     return (
       <>
@@ -198,6 +199,16 @@ const SwipeableViews: React.FC<Props> = React.memo(
               transform: to([x, y], (x, y) => axis === 'x' ? `translateX(${x}px)` : `translateY(${y}px)`)
             }}
             {...bind()}
+            // {...(() => {
+            //   const { onClickCapture, ...events} = bind();
+            //   return {
+            //     ...events,
+            //     onClickCapture(event) { 
+            //       event.preventDefault(); 
+            //       onClickCapture(event); 
+            //     }
+            //   }
+            // })()}
             {...restHtmlAttributes}
           >
             {flattenChildren(

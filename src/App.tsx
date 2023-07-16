@@ -72,7 +72,7 @@ const App = React.memo(() => {
         }, '')
       }
     >
-      {({ activeViewIndex, changeViewIndex }) => (
+      {({ activeViewIndex, changeViewIndex }: any) => (
         <>
           <section id="portfolio" className="page">
             <img 
