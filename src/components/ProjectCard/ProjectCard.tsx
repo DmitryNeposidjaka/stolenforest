@@ -26,7 +26,7 @@ const ProjectCard: React.FunctionComponent<Props> = ({
         {/*
         //eslint-disable-next-line */}
         <a href={link} target="__blank" draggable={false}>
-          <img src={path.default} alt={name} draggable={false} />
+          <img src={path} alt={name} draggable={false} />
         </a>
       </div>
 
