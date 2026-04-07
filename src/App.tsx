@@ -12,10 +12,7 @@ import { projects } from './constants/projects'
 import logo from "./assets/logo.svg";
 import soundcloud from './assets/social-icons/soundcloud.svg';
 import behance from './assets/social-icons/behance.svg';
-import vimeo from './assets/social-icons/vimeo.svg';
 import bandcamp from './assets/social-icons/bandcamp.svg';
-import facebook from './assets/social-icons/facebook.svg';
-import vk from './assets/social-icons/vk.svg';
 import instagram from './assets/social-icons/instagram.svg';
 
 const socialLinks = [
@@ -30,19 +27,9 @@ const socialLinks = [
     img: behance
   },
   {
-    name: 'vimeo',
-    href: 'https://vimeo.com/stolentiq',
-    img: vimeo
-  },
-  {
     name: 'bandcamp',
     href: 'https://stolenforest.bandcamp.com/',
     img: bandcamp
-  },
-  {
-    name: 'facebook',
-    href: 'https://www.facebook.com/stolentiqstudio',
-    img: facebook
   },
   {
     name: 'instagram',
