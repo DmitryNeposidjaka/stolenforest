@@ -149,9 +149,6 @@ const App = React.memo(() => {
                     stolenforest@gmail.com
                   </a>
                 </p>
-                <p>
-                  telegram: <a href="https://t.me/humanramen">@humanramen</a>
-                </p>
               </div>
 
               <ul className="social-list">
