@@ -51,6 +51,16 @@ if (isEmpty(history.state)) {
 }
 
 const App = React.memo(() => {
+  const [isCopied, setIsCopied] = React.useState(false);
+
+  const handleCopyEmail = React.useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText("stolenforest@gmail.com").then(() => {
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    });
+  }, []);
+
   return (
     <SwipeableViews
       name="app"
@@ -139,8 +149,11 @@ const App = React.memo(() => {
               <div className="main-links-wrapper">
                 <p>
                   e-mail:{" "}
-                  <a href="mailto:stolenforest@gmail.com">
-                    stolenforest@gmail.com
+                  <a
+                    href="mailto:stolenforest@gmail.com"
+                    onClick={handleCopyEmail}
+                  >
+                    {isCopied ? "Copied!" : "stolenforest@gmail.com"}
                   </a>
                 </p>
               </div>
